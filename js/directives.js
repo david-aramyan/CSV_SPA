@@ -27,21 +27,20 @@
     csvApp.directive('exportToCsv',function(){
         return {
             restrict: 'A',
-            link: function (scope, element, attrs) {
-                var el = element[0];
+            link: function (scope, element) {
                 element.bind('click', function(){
                     var table = document.getElementById('csvTable');
                     var csvString = '';
-                    for(var i=0; i<table.rows.length;i++){
+                    for(var i=0; i<table.rows.length;i++){ // Get cells from each raw in the table
                         var rowData = table.rows[i].cells;
-                        for(var j=0; j<rowData.length-1;j++){
-                            // console.log(rowData[j]);
-                            csvString = csvString + rowData[j].innerText + ";";
+                        for(var j=0; j<rowData.length-1;j++){ // Get text values from each cell besides the last cell with buttons
+                            csvString = csvString + rowData[j].innerText + ";"; // Add cell values separated with semicolon
                         }
                         csvString = csvString.substring(0,csvString.length - 1);
                         csvString = csvString + "\n";
                     }
                     csvString = csvString.substring(0, csvString.length - 1);
+                    // Make hidden a element and trigger click on it
                     var a = $('<a/>', {
                         style:'display:none',
                         href:'data:application/octet-stream;base64,'+btoa(csvString),

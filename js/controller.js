@@ -7,7 +7,7 @@
     csvApp.controller('CsvParseController', function ($scope) {
 
         $scope.displayTable = function () {
-        // split content based on new line
+        // Split content based on new line
             var reader = new FileReader();
             reader.onload = function(e) {
                 $scope.$apply(function() {
@@ -19,7 +19,7 @@
                     for ( var i = 0; i < csvLines.length; i++) {
                         // Split content based on semicolon
                         var data = csvLines[i].split(';');
-                        if (data.length == headers.length) {
+                        if (data.length == headers.length) {  // Check if the line length is equal to first line length
                             var tarr = [];
                             for ( var j = 0; j < headers.length; j++) {
                                 tarr.push(data[j]);
@@ -31,7 +31,6 @@
                 });
             };
         reader.readAsText($scope.csvFile);
-
 
         };
 
@@ -45,9 +44,9 @@
                 return false;
             }
         };
+
         // Toggle edit
         $scope.editAppKey = function() {
-
             $scope.editMode = false;
         }
 
